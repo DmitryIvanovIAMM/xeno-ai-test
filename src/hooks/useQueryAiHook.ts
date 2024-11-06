@@ -2,12 +2,21 @@
 
 import { useContext } from 'react';
 import { ChatAiStateContext } from '@/Components/ChatAiStateContextInterface';
-import { ChatAiHistory, Communicator } from '@/Interfaces/interfaces';
+import { ChatAiHistory, ChatAiState, Communicator } from '@/Interfaces/interfaces';
 
 export const useQueryAiHook = () => {
   const { chatAiState, setChatAiState } = useContext(ChatAiStateContext);
 
+  const setInputValue = (value: string) => {
+    setChatAiState({
+      ...chatAiState,
+      currentInput: value,
+    });
+  };
+
   const sendAIQuery = async () => {
+    console.log('sendAIQuery().  currentInput: ', chatAiState.currentInput);
+
     const yourMessageHistory: ChatAiHistory = {
       message: chatAiState.currentInput,
       time: new Date(),
@@ -39,13 +48,8 @@ export const useQueryAiHook = () => {
         ...chatAiState,
         error: (error as string) || 'Failed to query AI',
       });
-    } finally {
-      setChatAiState({
-        ...chatAiState,
-        isQuerying: false,
-      });
     }
   };
 
-  return { chatAiState, setChatAiState, sendAIQuery };
+  return { chatAiState, setChatAiState, sendAIQuery, setInputValue };
 };
