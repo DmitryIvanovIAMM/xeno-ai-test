@@ -1,15 +1,17 @@
 'use client';
 
-import { createContext } from 'react';
+import { createContext, Dispatch, SetStateAction } from 'react';
 import { ChatAiState, defaultChatAiState } from '@/Interfaces/interfaces';
 
 export interface ChatAiStateContextInterface {
   chatAiState: ChatAiState;
-  setChatAiState: (chatAiState: ChatAiState) => void;
+  setChatAiState: Dispatch<SetStateAction<ChatAiState>>;
 }
 
-export const ChatAiStateContext = createContext<ChatAiStateContextInterface>({
+const defaultChatAiStateContext: ChatAiStateContextInterface = {
   chatAiState: defaultChatAiState,
-  // eslint-disable-next-line @typescript-eslint/no-empty-function
-  setChatAiState: (chatAiState: ChatAiState) => chatAiState,
-});
+  setChatAiState: () => {},
+};
+
+export const ChatAiStateContext =
+  createContext<ChatAiStateContextInterface>(defaultChatAiStateContext);
