@@ -15,6 +15,13 @@ export const useQueryAiHook = () => {
     }));
   };
 
+  const setAllowMockResponses = (value: boolean) => {
+    setChatAiState((currentState) => ({
+      ...currentState,
+      allowMockResponses: value,
+    }));
+  };
+
   const sendAIQuery = async () => {
     console.log('sendAIQuery().  currentInput: ', chatAiState.currentInput);
 
@@ -23,15 +30,9 @@ export const useQueryAiHook = () => {
       time: new Date(),
       communicator: Communicator.You,
     };
-    setChatAiState((currentState) => ({
-      ...currentState,
-      currentInput: '',
-      history: [...currentState.history, yourMessageHistory],
-      isQuerying: true,
-    }));
 
     try {
-      const response = await queryChatGPT(chatAiState.currentInput);
+      const response = await queryChatGPT(chatAiState.currentInput, chatAiState.allowMockResponses);
       console.log('response: ', response);
       const aiMessageHistory: ChatAiHistory = {
         message: response ?? 'No response from AI',
@@ -39,17 +40,18 @@ export const useQueryAiHook = () => {
         communicator: Communicator.ChatGPT,
       };
       setChatAiState((currentState) => ({
+        ...currentState,
         currentInput: '',
-        history: [...currentState.history, aiMessageHistory],
+        history: [...currentState.history, yourMessageHistory, aiMessageHistory],
         isQuerying: false,
         error: undefined,
       }));
     } catch (error) {
       console.log('error: ', error);
-      setChatAiState({
-        ...chatAiState,
+      setChatAiState((currentState) => ({
+        ...currentState,
         error: (error as string) || 'Failed to query AI',
-      });
+      }));
     } finally {
       setChatAiState((currentState) => ({
         ...currentState,
@@ -58,5 +60,5 @@ export const useQueryAiHook = () => {
     }
   };
 
-  return { chatAiState, setChatAiState, sendAIQuery, setInputValue };
+  return { chatAiState, setChatAiState, sendAIQuery, setInputValue, setAllowMockResponses };
 };

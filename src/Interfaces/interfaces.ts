@@ -12,10 +12,12 @@ export interface ChatAiState {
   history: ChatAiHistory[];
   isQuerying: boolean;
   error?: string;
+  allowMockResponses: boolean;
 }
 export const defaultChatAiState: ChatAiState = {
   currentInput: '',
   history: [],
   isQuerying: false,
   error: undefined,
+  allowMockResponses: false,
 };
