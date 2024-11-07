@@ -1,10 +1,10 @@
 'use client';
 
-import ChatInput from '@/Components/ChatInput/ChatInput';
-import ChatHistory from '@/Components/ChatHistory/ChatHistory';
+import ChatInput from '@/components/ChatInput/ChatInput';
+import ChatHistory from '@/components/ChatHistory/ChatHistory';
 import React from 'react';
 import { defaultChatAiState } from '@/Interfaces/interfaces';
-import { ChatAiStateContext } from '@/Components/ChatAiStateContextInterface';
+import { ChatAiStateContext } from '@/components/ChatAiStateContextInterface';
 
 export default function AiChat() {
   const [chatAiState, setChatAiState] = React.useState(defaultChatAiState);

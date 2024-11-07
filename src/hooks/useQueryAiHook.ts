@@ -1,8 +1,9 @@
 'use client';
 
 import { useContext } from 'react';
-import { ChatAiStateContext } from '@/Components/ChatAiStateContextInterface';
+import { ChatAiStateContext } from '@/components/ChatAiStateContextInterface';
 import { ChatAiHistory, Communicator } from '@/Interfaces/interfaces';
+import { queryChatGPT } from '@/openai/openai';
 
 export const useQueryAiHook = () => {
   const { chatAiState, setChatAiState } = useContext(ChatAiStateContext);
@@ -30,9 +31,10 @@ export const useQueryAiHook = () => {
     }));
 
     try {
-      const response = await Promise.resolve({ output: 'Mocked ChatGPT response' });
+      const response = await queryChatGPT(chatAiState.currentInput);
+      console.log('response: ', response);
       const aiMessageHistory: ChatAiHistory = {
-        message: response.output,
+        message: response ?? 'No response from AI',
         time: new Date(),
         communicator: Communicator.ChatGPT,
       };
@@ -43,6 +45,7 @@ export const useQueryAiHook = () => {
         error: undefined,
       }));
     } catch (error) {
+      console.log('error: ', error);
       setChatAiState({
         ...chatAiState,
         error: (error as string) || 'Failed to query AI',
