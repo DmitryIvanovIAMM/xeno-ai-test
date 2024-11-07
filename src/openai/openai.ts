@@ -19,6 +19,7 @@ export const queryChatGPT = async (
     }
     return Promise.reject('OpenAI client not initialized');
   }
+
   const params: OpenAI.Chat.ChatCompletionCreateParams = {
     messages: [{ role: 'user', content: query }],
     model: 'gpt-3.5-turbo',

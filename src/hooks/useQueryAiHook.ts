@@ -1,7 +1,7 @@
 'use client';
 
 import { useContext } from 'react';
-import { ChatAiStateContext } from '@/components/ChatAiStateContextInterface';
+import { ChatAiStateContext } from '@/components/AiChat/ChatAiStateContextInterface';
 import { ChatAiHistory, Communicator } from '@/Interfaces/interfaces';
 import { queryChatGPT } from '@/openai/openai';
 

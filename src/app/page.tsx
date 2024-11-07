@@ -1,4 +1,4 @@
-import AiChat from '@/components/AiChat';
+import AiChat from '@/components/AiChat/AiChat';
 import styles from './page.module.css';
 
 export default function Home() {
