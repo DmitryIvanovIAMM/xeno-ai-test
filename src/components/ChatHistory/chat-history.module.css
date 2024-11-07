@@ -11,6 +11,7 @@
     align-content: stretch;
     color: black;
     flex: 1 1;
+    background-color: #ffffe6;
 }
 
 .leftcard {
