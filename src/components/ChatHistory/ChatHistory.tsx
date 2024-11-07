@@ -13,7 +13,7 @@ const ChatHistory = () => {
   useEffect(() => {
     // eslint-disable-next-line @typescript-eslint/ban-ts-comment
     // @ts-expect-error
-    divRef?.current?.scrollIntoView({ behavior: 'smooth' });
+    if (divRef?.current?.scrollIntoView) divRef?.current?.scrollIntoView({ behavior: 'smooth' });
   });
 
   return (
