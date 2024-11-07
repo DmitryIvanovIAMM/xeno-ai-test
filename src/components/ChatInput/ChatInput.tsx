@@ -12,8 +12,6 @@ const ChatInput = () => {
       <TextField
         id='outlined-multiline-static'
         label='Put question here: '
-        multiline
-        rows={3}
         fullWidth={true}
         value={chatAiState.currentInput}
         margin='dense'
@@ -27,6 +25,7 @@ const ChatInput = () => {
           variant='contained'
           onClick={sendAIQuery}
           disabled={chatAiState.isQuerying || chatAiState.currentInput.length === 0}
+          style={{ height: '58px' }}
         >
           Send query
         </Button>

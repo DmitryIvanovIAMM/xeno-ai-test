@@ -4,7 +4,7 @@ import { useQueryAiHook } from '@/hooks/useQueryAiHook';
 import styles from './chat-history.module.css';
 import { Communicator } from '@/Interfaces/interfaces';
 import { Box } from '@mui/system';
-import { useEffect, useRef, useState } from 'react';
+import { useEffect, useRef } from 'react';
 
 const ChatHistory = () => {
   const { chatAiState } = useQueryAiHook();
@@ -13,7 +13,7 @@ const ChatHistory = () => {
   useEffect(() => {
     // eslint-disable-next-line @typescript-eslint/ban-ts-comment
     // @ts-expect-error
-    divRef?.current?.scrollIntoView({ behavior: 'smooth' });
+    if (divRef?.current?.scrollIntoView) divRef?.current?.scrollIntoView({ behavior: 'smooth' });
   });
 
   return (
