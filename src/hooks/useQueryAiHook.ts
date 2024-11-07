@@ -1,8 +1,9 @@
 'use client';
 
 import { useContext } from 'react';
-import { ChatAiStateContext } from '@/Components/ChatAiStateContextInterface';
+import { ChatAiStateContext } from '@/components/AiChat/ChatAiStateContextInterface';
 import { ChatAiHistory, Communicator } from '@/Interfaces/interfaces';
+import { queryChatGPT } from '@/openai/openai';
 
 export const useQueryAiHook = () => {
   const { chatAiState, setChatAiState } = useContext(ChatAiStateContext);
@@ -14,6 +15,13 @@ export const useQueryAiHook = () => {
     }));
   };
 
+  const setAllowMockResponses = (value: boolean) => {
+    setChatAiState((currentState) => ({
+      ...currentState,
+      allowMockResponses: value,
+    }));
+  };
+
   const sendAIQuery = async () => {
     console.log('sendAIQuery().  currentInput: ', chatAiState.currentInput);
 
@@ -22,31 +30,28 @@ export const useQueryAiHook = () => {
       time: new Date(),
       communicator: Communicator.You,
     };
-    setChatAiState((currentState) => ({
-      ...currentState,
-      currentInput: '',
-      history: [...currentState.history, yourMessageHistory],
-      isQuerying: true,
-    }));
 
     try {
-      const response = await Promise.resolve({ output: 'Mocked ChatGPT response' });
+      const response = await queryChatGPT(chatAiState.currentInput, chatAiState.allowMockResponses);
+      console.log('response: ', response);
       const aiMessageHistory: ChatAiHistory = {
-        message: response.output,
+        message: response ?? 'No response from AI',
         time: new Date(),
         communicator: Communicator.ChatGPT,
       };
       setChatAiState((currentState) => ({
+        ...currentState,
         currentInput: '',
-        history: [...currentState.history, aiMessageHistory],
+        history: [...currentState.history, yourMessageHistory, aiMessageHistory],
         isQuerying: false,
         error: undefined,
       }));
     } catch (error) {
-      setChatAiState({
-        ...chatAiState,
+      console.log('error: ', error);
+      setChatAiState((currentState) => ({
+        ...currentState,
         error: (error as string) || 'Failed to query AI',
-      });
+      }));
     } finally {
       setChatAiState((currentState) => ({
         ...currentState,
@@ -55,5 +60,5 @@ export const useQueryAiHook = () => {
     }
   };
 
-  return { chatAiState, setChatAiState, sendAIQuery, setInputValue };
+  return { chatAiState, setChatAiState, sendAIQuery, setInputValue, setAllowMockResponses };
 };
