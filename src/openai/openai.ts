@@ -1,4 +1,5 @@
-import 'openai/shims/node';
+//import 'openai/shims/node';
+import 'openai/shims/web';
 import OpenAI from 'openai';
 import { mockedChatGptResponses } from '@/openai/mockedChatGptReaponces.';
 
