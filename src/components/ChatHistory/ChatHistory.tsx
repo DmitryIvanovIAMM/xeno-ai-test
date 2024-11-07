@@ -4,7 +4,7 @@ import { useQueryAiHook } from '@/hooks/useQueryAiHook';
 import styles from './chat-history.module.css';
 import { Communicator } from '@/Interfaces/interfaces';
 import { Box } from '@mui/system';
-import { useEffect, useRef, useState } from 'react';
+import { useEffect, useRef } from 'react';
 
 const ChatHistory = () => {
   const { chatAiState } = useQueryAiHook();
