@@ -1,0 +1,41 @@
+.container {
+    margin: 20px 10px 20px 10px;
+    border: 1px solid #ccc;
+    height: 100%;
+    max-height: 80svh;
+    display: flex;
+    justify-content: flex-start;
+    align-items: stretch;
+    align-content: stretch;
+    flex-direction: row;
+    overflow-y: auto;
+    color: black;
+    flex: 1 1;
+}
+
+.history {
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+    width: 100%;
+    max-height: 80svh;
+    overflow-y: auto;
+
+}
+
+.leftcard {
+    display: flex;
+    margin: 10px;
+    justify-content: start;
+}
+
+.rightcard {
+    display: flex;
+    margin: 10px;
+    justify-content: end;
+}
+
+.message {
+    background-color: #33cccc;
+}
+

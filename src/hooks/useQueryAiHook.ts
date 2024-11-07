@@ -7,45 +7,53 @@ import { ChatAiHistory, Communicator } from '@/Interfaces/interfaces';
 export const useQueryAiHook = () => {
   const { chatAiState, setChatAiState } = useContext(ChatAiStateContext);
 
+  const setInputValue = (value: string) => {
+    setChatAiState((currentState) => ({
+      ...currentState,
+      currentInput: value,
+    }));
+  };
+
   const sendAIQuery = async () => {
+    console.log('sendAIQuery().  currentInput: ', chatAiState.currentInput);
+
     const yourMessageHistory: ChatAiHistory = {
       message: chatAiState.currentInput,
       time: new Date(),
       communicator: Communicator.You,
     };
-    setChatAiState({
-      ...chatAiState,
+    setChatAiState((currentState) => ({
+      ...currentState,
       currentInput: '',
-      history: [...chatAiState.history, yourMessageHistory],
+      history: [...currentState.history, yourMessageHistory],
       isQuerying: true,
-    });
+    }));
 
     try {
       const response = await Promise.resolve({ output: 'Mocked ChatGPT response' });
-      setChatAiState({
+      const aiMessageHistory: ChatAiHistory = {
+        message: response.output,
+        time: new Date(),
+        communicator: Communicator.ChatGPT,
+      };
+      setChatAiState((currentState) => ({
         currentInput: '',
-        history: [
-          ...chatAiState.history,
-          {
-            message: response.output,
-            time: new Date(),
-            communicator: Communicator.ChatGPT,
-          },
-        ],
+        history: [...currentState.history, aiMessageHistory],
         isQuerying: false,
-      });
+        error: undefined,
+      }));
     } catch (error) {
       setChatAiState({
         ...chatAiState,
         error: (error as string) || 'Failed to query AI',
       });
     } finally {
-      setChatAiState({
-        ...chatAiState,
+      setChatAiState((currentState) => ({
+        ...currentState,
         isQuerying: false,
-      });
+      }));
     }
   };
 
-  return { chatAiState, setChatAiState, sendAIQuery };
+  return { chatAiState, setChatAiState, sendAIQuery, setInputValue };
 };
