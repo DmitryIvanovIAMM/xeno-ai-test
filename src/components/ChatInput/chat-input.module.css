@@ -2,6 +2,7 @@
     margin: 10px 10px 10px 10px;
     display: flex;
     flex-direction: row;
+    color: black;
 }
 .button {
     margin: 6px 0px 10px 10px;
