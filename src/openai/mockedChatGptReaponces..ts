@@ -4,4 +4,5 @@ export const mockedChatGptResponses = [
   'You are spot.',
   'Pleased to meet you. Ask me something...',
   'What about morning coffee?',
+  'Stop bugging me!!!!',
 ];
