@@ -23,8 +23,6 @@ export const useQueryAiHook = () => {
   };
 
   const sendAIQuery = async () => {
-    console.log('sendAIQuery().  currentInput: ', chatAiState.currentInput);
-
     const yourMessageHistory: ChatAiHistory = {
       message: chatAiState.currentInput,
       time: new Date(),
@@ -33,7 +31,6 @@ export const useQueryAiHook = () => {
 
     try {
       const response = await queryChatGPT(chatAiState.currentInput, chatAiState.allowMockResponses);
-      console.log('response: ', response);
       const aiMessageHistory: ChatAiHistory = {
         message: response ?? 'No response from AI',
         time: new Date(),
@@ -47,7 +44,6 @@ export const useQueryAiHook = () => {
         error: undefined,
       }));
     } catch (error) {
-      console.log('error: ', error);
       setChatAiState((currentState) => ({
         ...currentState,
         error: (error as string) || 'Failed to query AI',

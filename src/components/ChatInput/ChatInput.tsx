@@ -6,7 +6,6 @@ import styles from './chat-input.module.css';
 
 const ChatInput = () => {
   const { chatAiState, sendAIQuery, setInputValue } = useQueryAiHook();
-  console.log('ChatInput(). chatAiState: ', chatAiState);
 
   return (
     <div className={styles.container}>
