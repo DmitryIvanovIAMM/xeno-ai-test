@@ -16,8 +16,26 @@
 .history {
     display: flex;
     flex-direction: column;
-    heigth: 100%;
+    height: 100%;
     width: 100%;
     max-height: 80svh;
     overflow-y: auto;
+
 }
+
+.leftcard {
+    display: flex;
+    margin: 10px;
+    justify-content: start;
+}
+
+.rightcard {
+    display: flex;
+    margin: 10px;
+    justify-content: end;
+}
+
+.message {
+    background-color: #33cccc;
+}
+

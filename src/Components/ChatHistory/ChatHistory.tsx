@@ -2,6 +2,9 @@
 
 import { useQueryAiHook } from '@/hooks/useQueryAiHook';
 import styles from './chat-history.module.css';
+import { Paper } from '@mui/material';
+import { Communicator } from '@/Interfaces/interfaces';
+import { Box } from '@mui/system';
 
 const ChatHistory = () => {
   const { chatAiState } = useQueryAiHook();
@@ -10,9 +13,19 @@ const ChatHistory = () => {
     <div className={styles.container}>
       <div className={styles.history}>
         {chatAiState.history.map((item, index) => (
-          <div key={index}>
-            <div className={styles.message}>{item.message}</div>
-            <div className={styles.time}>{item.time.toLocaleTimeString()}</div>
+          <div
+            className={item.communicator === Communicator.You ? styles.leftcard : styles.rightcard}
+            key={index}
+          >
+            <Box sx={{ padding: '10px' }} className={styles.message}>
+              <div className={styles.time}>
+                {item.communicator === Communicator.You
+                  ? `You ask at ${item.time.toLocaleTimeString()}:`
+                  : `ChatGPT answers at ${item.time.toLocaleTimeString()}:`}
+              </div>
+              <hr />
+              <div>{item.message}</div>
+            </Box>
           </div>
         ))}
       </div>
