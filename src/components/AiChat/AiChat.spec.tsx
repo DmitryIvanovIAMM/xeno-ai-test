@@ -20,7 +20,7 @@ describe('AiChat component', () => {
 
     expect(container.container).toHaveTextContent('Allow mock responses');
     container.getByRole('button', {
-      name: 'Send query',
+      name: 'Send',
     });
   });
 });

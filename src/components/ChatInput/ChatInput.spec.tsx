@@ -19,7 +19,7 @@ describe('ChatInput component', () => {
     const { container } = await setup();
 
     container.getByRole('button', {
-      name: 'Send query',
+      name: 'Send',
     });
   });
 });
