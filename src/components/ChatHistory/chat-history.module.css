@@ -1,8 +1,8 @@
 .container {
-    margin: 0px 10px 20px 10px;
+    margin: 10px 10px 0px 10px;
     border: 1px solid #ccc;
     height: 100%;
-    max-height: 80svh;
+    max-height: 90svh;
     overflow-y: auto;
     display: flex;
     flex-direction: column;
@@ -18,12 +18,15 @@
     display: flex;
     margin: 10px;
     justify-content: start;
+    max-width: 75%;
 }
 
 .rightcard {
     display: flex;
     margin: 10px;
     justify-content: end;
+    max-width: 75%;
+    align-self: end;
 }
 
 .message {
